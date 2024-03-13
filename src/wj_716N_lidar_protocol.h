@@ -1,19 +1,15 @@
 #ifndef WJ_716N_LIDAR_PROTOCOL_H
 #define WJ_716N_LIDAR_PROTOCOL_H
-#include "rclcpp/rclcpp.hpp"
 #include "/opt/ros/humble/include/sensor_msgs/sensor_msgs/msg/laser_scan.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "string.h"
 #include <boost/asio.hpp>
 #include <boost/asio/placeholders.hpp>
 #include <boost/bind/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/system/error_code.hpp>
-// #include <dynamic_reconfigure/server.h>
 #include <iostream>
-// #include <sensor_msgs/LaserScan.h>
-// #include <visualization_msgs/Marker.h>
-//#include "rviz_common/msg/marker.hpp"
-//#include <wj_716N_lidar/wj_716N_lidarConfig.h>
+
 using namespace std;
 namespace wj_lidar
 {
@@ -34,7 +30,6 @@ class wj_716N_lidar_protocol
     bool OnRecvProcess(unsigned char *data, int len);
     bool checkXor(unsigned char *recvbuf, int recvlen);
     void send_scan(const char *data, const int len);
-    // ros::NodeHandle nh;
     std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("wj_716N_lidar_01");
     rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr marker_pub;
     sensor_msgs::msg::LaserScan scan;

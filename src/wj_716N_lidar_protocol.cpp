@@ -47,7 +47,6 @@ namespace wj_lidar
 wj_716N_lidar_protocol::wj_716N_lidar_protocol()
 {
     memset(&m_sdata, 0, sizeof(m_sdata));
-    // marker_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 50);//ros:://node=nh?
     marker_pub = node->create_publisher<sensor_msgs::msg::LaserScan>("scan", 50);
     rclcpp::Time scan_time = node->now();
     scan.header.stamp = scan_time;

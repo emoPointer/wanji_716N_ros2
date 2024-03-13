@@ -77,33 +77,7 @@ def generate_launch_description():
 
 if __name__ == '__main__':
     launch.main()
-
-# <?xml version="1.1"?>
-# <!-- start and stop angle is given in [rad] -->
-# <!--
-# default min_angle is -135 degree.
-# default max_angle is +135 degree.  
-
-# Check IP-address, if you scanner is not found after roslaunch.
-# -->
-
-# <launch>
-#   <node name="wj_716N_lidar_01" pkg="wj_716N_lidar" type="wj_716N_lidar" respawn="false" output="screen">
-#   <param name="hostname"         type="string"  value="192.168.0.2" />
-#   <param name="port"             type="string"  value="2110" />
-#   <param name="frequency_scan"   type="int"     value="1" />    <!-- 1: 0.25°_15hz,
-#                                                                      2: 0.25°_25hz,-->
-#   <!-- -135° -->
-#   <param name="min_ang"          type="double"  value="-2.35619449" />
-#   <!-- 135° -->
-#   <param name="max_ang"          type="double"  value="2.35619449" />
-#   <param name="frame_id"         type="str"     value="laser" />
-#   <param name="range_min"        type="double"  value="0" />
-#   <param name="range_max"        type="double"  value="30.0" />
-
-#   </node>
-# </launch>
-
+    
 # <!--
 # Conversion between degree and rad
 
