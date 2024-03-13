@@ -3,47 +3,6 @@
 
 namespace wj_lidar
 {
-// bool wj_716N_lidar_protocol::setConfig(wj_716N_lidar::wj_716N_lidarConfig &new_config, uint32_t level)
-// {
-//     config_ = new_config;
-//     scan.header.frame_id = config_.frame_id;
-//     scan.angle_min = config_.min_ang;
-//     scan.angle_max = config_.max_ang;
-//     scan.range_min = config_.range_min;
-//     scan.range_max = config_.range_max;
-//     freq_scan = config_.frequency_scan;
-
-//     scan.angle_increment = 0.017453 / 4;
-//     if (freq_scan == 1) // 0.25°_15hz
-//     {
-//         scan.time_increment = 1 / 15.00000000 / 1440;
-//         total_point = 1081;
-//     }
-//     else if (freq_scan == 2) // 0.25°_25hz
-//     {
-//         scan.time_increment = 1 / 25.00000000 / 1440;
-//         total_point = 1081;
-//     }
-
-//     // adjust angle_min to min_ang config param
-//     index_start = (config_.min_ang + 2.35619449) / scan.angle_increment;
-//     // adjust angle_max to max_ang config param
-//     index_end = 1081 - ((2.35619449 - config_.max_ang) / scan.angle_increment);
-//     int samples = index_end - index_start;
-//     scan.ranges.resize(samples);
-//     scan.intensities.resize(samples);
-
-//     cout << "frame_id:" << scan.header.frame_id << endl;
-//     cout << "min_ang:" << scan.angle_min << endl;
-//     cout << "max_ang:" << scan.angle_max << endl;
-//     cout << "angle_increment:" << scan.angle_increment << endl;
-//     cout << "time_increment:" << scan.time_increment << endl;
-//     cout << "range_min:" << scan.range_min << endl;
-//     cout << "range_max:" << scan.range_max << endl;
-//     cout << "samples_per_scan:" << samples << endl;
-//     return true;
-// }
-
 wj_716N_lidar_protocol::wj_716N_lidar_protocol()
 {
     memset(&m_sdata, 0, sizeof(m_sdata));
@@ -51,7 +10,7 @@ wj_716N_lidar_protocol::wj_716N_lidar_protocol()
     rclcpp::Time scan_time = node->now();
     scan.header.stamp = scan_time;
 
-    freq_scan = 1;
+    node->declare_parameter("frequency_scan", 1);
     node->get_parameter("frequency_scan", freq_scan);
     m_u32PreFrameNo = 0;
     m_u32ExpectedPackageNo = 0;
@@ -59,14 +18,19 @@ wj_716N_lidar_protocol::wj_716N_lidar_protocol()
     total_point = 1081;
 
     scan.header.frame_id = "laser";
-    node->get_parameter("frequency_scan", scan.header.frame_id);
+    node->declare_parameter("frame_id", "laser");
+    node->get_parameter("frame_id", scan.header.frame_id);
     scan.angle_min = -2.35619449;
+    node->declare_parameter("min_ang", -2.35619449);
     node->get_parameter("min_ang", scan.angle_min);
     scan.angle_max = 2.35619449;
+    node->declare_parameter("max_ang", 2.35619449);
     node->get_parameter("max_ang", scan.angle_max);
     scan.range_min = 0;
+    node->declare_parameter("range_min", 0.0);
     node->get_parameter("range_min", scan.range_min);
     scan.range_max = 30;
+    node->declare_parameter("range_max", 30.0);//必须加.0
     node->get_parameter("range_max", scan.range_max);
     scan.angle_increment = 0.017453 / 4;
     if (freq_scan == 1) // 0.25°_15hz

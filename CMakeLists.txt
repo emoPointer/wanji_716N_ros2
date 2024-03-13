@@ -147,7 +147,7 @@ install(TARGETS wj_716N_lidar
   DESTINATION lib/${PROJECT_NAME})
 install(
   DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}/
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

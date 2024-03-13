@@ -1,7 +1,7 @@
 #ifndef WJ_716N_LIDAR_PROTOCOL_H
 #define WJ_716N_LIDAR_PROTOCOL_H
-#include "/opt/ros/humble/include/sensor_msgs/sensor_msgs/msg/laser_scan.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "/opt/ros/humble/include/sensor_msgs/sensor_msgs/msg/laser_scan.hpp"
 #include "string.h"
 #include <boost/asio.hpp>
 #include <boost/asio/placeholders.hpp>
@@ -33,13 +33,11 @@ class wj_716N_lidar_protocol
     std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("wj_716N_lidar_01");
     rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr marker_pub;
     sensor_msgs::msg::LaserScan scan;
-    // bool setConfig(wj_716N_lidar::wj_716N_lidarConfig &new_config, uint32_t level);
     bool heartstate;
 
   private:
     void movedata(DataCache &sdata);
     DataCache m_sdata;
-    // wj_716N_lidar::wj_716N_lidarConfig config_;
     unsigned int m_u32PreFrameNo;
     unsigned int m_u32ExpectedPackageNo;
     int m_n32currentDataNo;
